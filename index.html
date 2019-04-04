@@ -10,41 +10,50 @@
 </head>
 
 <body>
+    <div class="container">
+        <h1>TODO LIST</h1>
+        <form class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="input" class="js_input form-control" id="inputPassword2" placeholder="Agregar Valor">
+            </div>
+            <button type="submit" class="js_button btn btn-primary mb-2">Agregar</button>
+        </form>
+        <div id="content">
+
+        </div>
+    </div>
     <script>
-        /*
-            Cual es tu nombre ?
-            Cual es tu apellido ?
-            Cual es tu edad ?
-            Cual es tu profesion ?
-            Cuantos amigos tienes ?
-            Nombralos
-        */
+        function agregar() {
+            let input = document.querySelector('.js_input'),
+                button = document.querySelector('.js_button');
+                list = [];
 
-        let data = {
-            nombre: '',
-            apellido: '',
-            edad: '',
-            profesion: '',
-            cantidad_amigos: '',
-            amigos: []
+            button.addEventListener('click',  (e)  => {
+                e.preventDefault();
+
+                let template = `<div>${input.value}<button type="button" class="btn btn-primary js_edit">Editar</button><button type="button" class="btn btn-danger js_delete">Eliminar</button></div>`;
+                list.push(template);
+                imprimir(list);
+                input.value = '';
+            }, false)
         }
 
-        data.nombre = prompt("Cual es tu nombre");
-        data.apellido = prompt("Cual es tu apellido");
-        data.edad = prompt("Cual es tu edad");
-        data.profesion = prompt("Cual es tu profesion");
-        data.cantidad_amigos = prompt("Cuantos amigos tienes");
-
-        for (let index = 1; index <= data.cantidad_amigos; index++) {
-            data.amigos.push(prompt("Nombre amigo"));
+        function imprimir(list) {
+            let content = document.querySelector('#content');
+            console.log('list', list)
+            console.log('join0', list.join(''))
+            content.innerHTML = list.join('');
         }
 
-        let template =
-        `hola mi nombre es <h1>${data.nombre}</h1> <h2>${data.apellido }</h2> tengo ${data.edad} años
-        mi profesion es ${data.profesion} y tengo ${data.amigos.length } amigos. Sus nombres son 
-        ${data.amigos.join('-')}`;
+        function del(list) {
+           
+        }
 
-        document.write(template);
+        function edit(list) {
+
+        }
+
+        agregar();
     </script>
 </body>
 

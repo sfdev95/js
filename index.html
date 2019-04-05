@@ -14,7 +14,7 @@
         <h1>TODO LIST</h1>
         <form class="form-inline">
             <div class="form-group mx-sm-3 mb-2">
-                <input type="input" class="js_input form-control" id="inputPassword2" placeholder="Agregar Valor">
+                <input type="input" class="js_input form-control" id="inputPassword2" placeholder="Agregar Valor" autocomplete="off">
             </div>
             <button type="submit" class="js_button btn btn-primary mb-2">Agregar</button>
         </form>
@@ -23,34 +23,53 @@
         </div>
     </div>
     <script>
+        let list = [];
+        function makeTemplate(value) {
+            let template = `<div><span>${value}</span><button type="button" class="btn btn-primary js_edit">Editar</button><button type="button" class="btn btn-danger js_delete">Eliminar</button></div>`;
+            return template;
+        }
+
         function agregar() {
-            let input = document.querySelector('.js_input'),
-                button = document.querySelector('.js_button');
-                list = [];
+            let inputAdd = document.querySelector('.js_input'),
+                buttonAdd = document.querySelector('.js_button');
 
-            button.addEventListener('click',  (e)  => {
+            buttonAdd.addEventListener('click', function (e) {
                 e.preventDefault();
-
-                let template = `<div>${input.value}<button type="button" class="btn btn-primary js_edit">Editar</button><button type="button" class="btn btn-danger js_delete">Eliminar</button></div>`;
+                let template = makeTemplate(inputAdd.value);
                 list.push(template);
-                imprimir(list);
-                input.value = '';
-            }, false)
+                imprimir();
+                inputAdd.value = '';
+            })
         }
 
-        function imprimir(list) {
+        function imprimir() {
             let content = document.querySelector('#content');
-            console.log('list', list)
-            console.log('join0', list.join(''))
             content.innerHTML = list.join('');
+            addEventdel();
+            addEventEdit();
         }
 
-        function del(list) {
-           
+        function addEventdel() {
+            let btnDel = document.querySelectorAll('.js_delete');
+            btnDel.forEach((element, id) => {
+                element.addEventListener('click', function () {
+                    list.splice(id, 1);
+                    imprimir();
+                })
+            });
         }
 
-        function edit(list) {
-
+        function addEventEdit() {
+            let btnEdit = document.querySelectorAll('.js_edit');
+            btnEdit.forEach(function(element, id) {
+                element.addEventListener('click', function(){
+                    let currentValue = element.closest('div').querySelector('span');
+                    let valueModal = prompt('Editar Informacion', currentValue.textContent);
+                    let template = makeTemplate(valueModal)
+                    console.log('value', modal)
+                    //currentValue.innerHTML = modal;
+                })
+            })
         }
 
         agregar();

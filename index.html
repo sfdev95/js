@@ -14,12 +14,35 @@
         <h1>TODO LIST</h1>
         <form class="form-inline">
             <div class="form-group mx-sm-3 mb-2">
-                <input type="input" class="js_input form-control" id="inputPassword2" placeholder="Agregar Valor" autocomplete="off">
+                <input type="input" class="js_input form-control" id="inputPassword2" placeholder="Agregar Valor"
+                    autocomplete="off">
             </div>
             <button type="submit" class="js_button btn btn-primary mb-2">Agregar</button>
         </form>
         <div id="content">
 
+        </div>
+
+        <div class="add">
+            <div>
+                <input type="text" class="js_input">
+                <button class="js_button">Agregar</button>
+            </div>
+            <div>
+                <input type="text" class="js_input">
+                <button class="js_button">Agregar</button>
+            </div>
+        </div>
+        <br /><br />
+        <div class="add2">
+            <div>
+                <input type="text" class="js_input2">
+                <button class="js_button2">Agregar</button>
+            </div>
+            <div>
+                <input type="text" class="js_input2">
+                <button class="js_button2">Agregar</button>
+            </div>
         </div>
     </div>
     <script>
@@ -61,8 +84,8 @@
 
         function addEventEdit() {
             let btnEdit = document.querySelectorAll('.js_edit');
-            btnEdit.forEach(function(element, id) {
-                element.addEventListener('click', function(){
+            btnEdit.forEach(function (element, id) {
+                element.addEventListener('click', function () {
                     let currentValue = element.closest('div').querySelector('span');
                     let valueModal = prompt('Editar Informacion', currentValue.textContent);
                     let template = makeTemplate(valueModal)
@@ -73,6 +96,107 @@
         }
 
         agregar();
+
+        console.log('window', this)
+        // con acceso al window
+        function a() {
+            console.log('//ACCESO AL WINDOW//\n', this)
+        }
+        a();
+
+        // con use strict quitamos el acceso al window
+        function b() {
+            'use strict';
+            console.log('\n//ACCESO AL WINDOW CON STRICT//')
+            console.log(this)
+        }
+        b();
+
+        // Entendiendo el this en js
+        function c() {
+            this.name = 'sebastian';
+            this.lastname = 'yabiku';
+            console.log('c', this)
+            function b() {
+                console.log('\n//OBJECTO EN FUNCION//')
+                console.log(this);
+            }
+
+            return {
+                fn: b
+            }
+        }
+
+        let cVar = c;
+        cVar().fn();
+
+        console.log('\n//INSTANCIA//')
+        let instCVar = new c();
+
+
+        // FUNCION 
+        function myFunction() {
+            console.log(this.name);
+        }
+
+        let objectA = {
+            name: "Alice",
+            myMethod: myFunction
+        };
+
+        let objectB = {
+            name: "Bob",
+            myMethod: myFunction
+        };
+
+        objectA.myMethod();
+        objectB.myMethod();
+
+
+        // apply, call, bind
+        const hablar = function (l1, l2, l3) {
+            console.log(`Hola mi nombre es ${this.nombre}
+                y se programar en ${l1}, ${l2}, ${l3}.`);
+        };
+
+        const alumno = {
+            nombre: 'sebastian',
+            edad: 22
+        };
+
+        const lenguajes = ['js', 'python', 'c'];
+
+        hablar.call(alumno, lenguajes[0],lenguajes[1],lenguajes[2]);
+        hablar.apply(alumno, lenguajes);
+        const hablaAlumno = hablar.bind(alumno, lenguajes[0],lenguajes[1],lenguajes[2]);
+        hablaAlumno();
+
+        function changeText(opt) {
+            this.btns = opt.buttons;
+            this.inputs = opt.inputs;
+            this.change = opt.change;
+
+            this.btns.forEach(function (elm, id) {
+                elm.addEventListener('click', function () {
+                    this.inputs.forEach( (elm) => {
+                        elm.value = this.change;
+                    })
+                }.bind(opt));
+            });
+        }
+
+        let btnInp = new changeText({
+            buttons: document.querySelectorAll('.js_button'),
+            inputs: document.querySelectorAll('.js_input'),
+            change: 'hola a todos'
+        });
+
+        let btnInp2 = new changeText({
+            buttons: document.querySelectorAll('.js_button2'),
+            inputs: document.querySelectorAll('.js_input2'),
+            change: 'joaquin'
+        })
+
     </script>
 </body>
 

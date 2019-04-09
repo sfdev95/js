@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOM</title>
+</head>
+
+<body>
+    <!-- <div id="one" style="background: red">ID</div>
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+    <p>4</p>
+
+    <div class="querySelector">
+        <div class="three">uno</div>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+    </div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul> -->
+
+    <div>
+        <strong>hello</strong>
+    </div>
+
+    <div id="para1">
+        <p>1</p>
+        <p>2</p>
+    </div>
+
+    <button>Hola Mundo</button>
+
+    <input value="Click me" onclick="alert('Click!')" type="button">
+    <input id="elem" type="button" value="Click me">
+
+    <button id="listener">LISTENER</button>
+    <input id="text" type="text">
+
+    <select id="select" name="" >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+
+    <input type="checkbox" name="cool" data-check="1" id="cool1">
+    <input type="checkbox" name="cool" data-check="2" id="cool2">
+    <script>
+        // let one = document.getElementById('one');
+        // let two = document.getElementsByTagName('p');
+
+        // console.log('one', one);
+        // console.log('two', two);
+
+
+        // Array.from(two).forEach(element => {
+        //     console.log('element', element)            
+        // });
+
+
+        // let three = document.querySelector('.three');
+        // console.log(three);
+        // let threeAll = document.querySelectorAll('.querySelector p');
+
+        // threeAll.parentNode;
+        // threeAll.forEach((elm) => {
+        //     console.log('querySelector', elm)
+        //     console.log('padre', elm.parentNode)
+        // })
+
+        // childnodes
+
+        // let parent = document.querySelector('ul');
+        // console.log(parent);
+
+        //MANIPULATION 
+        // let newDiv = document.createElement('div');
+        // newDiv.style.background = "yellow";
+        // newDiv.id = "id";
+        // newDiv.classList.add("dda");
+        // let text = document.createTextNode("Hola!¿Qué tal?");
+        // newDiv.appendChild(text);
+
+        // document.body.appendChild(newDiv)
+        // console.log('div', newDiv)
+
+        //     setTimeout(() => {
+        //         document.body.removeChild(newDiv)
+        //     }, 3000)
+
+        // let div = document.createElement('div');
+        // div.textContent = 'DIV!!';
+        // div.style.background = "yellow";
+        // div.style.transition = "all 1s ease";
+        // document.body.appendChild(div);
+
+        // setTimeout(() => {
+        //     div.style.opacity = '0';
+        //     setTimeout(() => {
+        //         document.body.removeChild(div);
+        //     }, 1000)
+        // }, 3000)
+        let em = document.createElement('em');
+        let strong = document.querySelector('strong');
+        let div = document.querySelector('div');
+        em.textContent = 'hi';
+        div.replaceChild(em, strong);
+
+        let p = document.getElementById("para1");
+        let p_prime = p.cloneNode(true);
+
+        console.log('p', p_prime)
+
+        let b = document.querySelector("button");
+
+        b.setAttribute("name", "helloButton");
+        b.setAttribute("style", "background: red; border:0");
+
+        console.log('get style', b.getAttribute('name'))
+
+        b.removeAttribute("style");
+        b.style.cssText = "background: yellow; border: 1px solid red";
+
+        let computed = getComputedStyle(b);
+        console.log(computed, computed.backgroundColor);
+    </script>
+
+    <script>
+        function sayThanks() {
+            alert('Thanks!');
+        }
+
+        elem.onclick = function () {
+            alert('Thank you');
+        };
+
+        elem.onclick = function () { alert(1); }
+        // ...
+        elem.onclick = function () { alert(2); }
+
+        let button = document.querySelector('#listener');
+
+        button.addEventListener('click', eventClick);
+        function eventClick(e) {
+            console.log('click')
+            button.removeEventListener('click', eventClick)
+        }
+
+        function eventMouse(e) {
+            console.log('e', e)
+            if (e.type === 'mouseover') {
+                console.log('entro')
+            } else if (e.type === 'mouseout') {
+                console.log('salio')
+            }
+        }
+
+
+        button.addEventListener('mouseover', eventMouse);
+        button.addEventListener('mouseout', eventMouse);
+
+
+        window.addEventListener('resize', function(e) {
+            console.log('e', e.clientY, e.clientX)
+            console.log(this.innerWidth)
+        })
+
+        document.querySelector('#select').addEventListener('change', (e) => {
+            console.log('e', e.target.value)
+        })
+
+        document.querySelector('#cool1').addEventListener('change', (e) => {
+            console.log('e', e)
+            console.log('e', e.target)
+        })
+    </script>
+</body>
+
+</html>

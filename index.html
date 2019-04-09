@@ -46,6 +46,7 @@
         </div>
     </div>
     <script>
+        "use strict";
         let list = [];
         function makeTemplate(value) {
             let template = `<div><span>${value}</span><button type="button" class="btn btn-primary js_edit">Editar</button><button type="button" class="btn btn-danger js_delete">Eliminar</button></div>`;
@@ -177,6 +178,7 @@
             this.change = opt.change;
 
             this.btns.forEach(function (elm, id) {
+
                 elm.addEventListener('click', function () {
                     this.inputs.forEach( (elm) => {
                         elm.value = this.change;
@@ -196,6 +198,9 @@
             inputs: document.querySelectorAll('.js_input2'),
             change: 'joaquin'
         })
+
+        // DOM AND EVENTS
+
 
     </script>
 </body>
